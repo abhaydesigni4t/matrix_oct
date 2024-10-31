@@ -290,6 +290,35 @@
         }
         
     
+        .hardware-options {
+            position: absolute;
+            top: 250px; /* Adjust based on where you want the links */
+            left: 95%; /* Align to the right side */
+            width: 200px; /* Width of the links */
+            display: none; /* Keep it hidden initially */
+        }
+        
+        .hardware-options ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0; /* Remove default padding */
+        }
+        
+        .hardware-options li {
+            margin: 5px 0; /* Add space between items */
+        }
+        
+        .hardware-options a {
+            text-decoration: none; /* Remove underline */
+            color: blue; /* Link color */
+        }
+        
+        .hardware-options a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+        
+        
+        
+        
     </style>
 </head>
 <body>
@@ -457,19 +486,46 @@
                 </div>
                 <div class="form-group">
                     <label>Filter through to select type of part number</label>
+                    <select id="part-type-select">
+                        <option value="">Select an Option</option>
+                        <option value="line-tower">Line & Tower Hardware</option> 
+                        <option value="suspension">Suspension Clamps</option>
+                        <option value="deadends">Deadends</option>
+                        <option value="splices">Splices & Sleeves</option>
+                        <option value="terminals">Terminals & Taps</option>
+                        <option value="conductor">Conductor Protection</option>
+                    </select>
+                </div>
+    
+                <!-- Additional Dropdown for Line & Tower Hardware -->
+                <div class="form-group hardware-options" style="display: none;">
+                    
                     <select>
-                        <option>Line & Tower Hardware</option> 
-                        <option>Suspension Clamps</option>
-                        <option>Deadends</option>
-                        <option>Splices & Sleeves</option>
-                        <option>Terminals & Taps</option>
-                        <option>Conductor Protection</option>
+                        <option>Clevis Eye</option>
+                        <option>Clevis-Clevis </option>
+                        <option>Clevis Eye Extension Link</option>
+                        <option>Clevis Eye </option>
+                        <option>Corona Free Clevis Clevis </option>
+                        <option>Hot Line Clevis Clevis </option>
+                        <option>Hot Line Extension Clevis Eye </option>
+                        <option>Hot Line Oval Eye PAD Eye </option>
+                        <option>Hot Line Socket Clevis </option>
+                        <option>Hot Line SocketEye </option>
+                        <option>Hot Line Socket Y-Clevis </option>
+                        <option>Hot Line Y-Clevis Clevis Eye  </option>
+                        <option>Socket Eye </option>
+                        <option>Hot Line Y-Clevis Eye </option>
+                        <option>Hot Line Y-Y Clevis </option>
+                        <option>Socket Clevis </option>
+                        <option>Socket -Socket </option>
                     </select>
                 </div>
                 <button class="save-btn">Save</button>
             </div>
         </div>
     </div>
+    
+    
     
     
     {% comment %} <!-- Footer Section -->
@@ -497,5 +553,28 @@
         });
     </script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const partTypeSelect = document.getElementById("part-type-select");
+            const hardwareOptions = document.querySelector(".hardware-options");
+        
+            // Function to toggle link visibility
+            function toggleLinks() {
+                if (partTypeSelect.value === "line-tower") {
+                    hardwareOptions.style.display = "block"; // Show the links
+                } else {
+                    hardwareOptions.style.display = "none"; // Hide the links
+                }
+            }
+        
+            // Listen for changes on the select dropdown
+            partTypeSelect.addEventListener("change", toggleLinks);
+        });
+        
+        
+        
+               
+        
+    </script>
 </body>
 </html>
