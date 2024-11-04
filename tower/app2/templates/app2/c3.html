@@ -316,84 +316,8 @@
             text-decoration: underline; /* Underline on hover */
         }
         
-        /* Popup Overlay - Hidden by Default */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none; /* Hidden by default */
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-        
-        .popup {
-            background-color: white;
-            padding: 20px;
-            border-radius: 0 0 10px 10px; /* Rounded only at the bottom */
-            text-align: center;
-            width: 500px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            display: none; /* Hidden by default */
-            position: relative;
-        }
-        
-        .popup .popup-header {
-            background-color: #ffec00;
-            color: black;
-            font-size: 12px;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
-        
-        .popup-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 24px;
-            color: black;
-        }
-        
-        .popup h3 {
-            font-size: 16px;
-            color: black;
-        }
-        
-        .popup .popup-btn {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 10px;
-            color: white;
-            transition: background-color 0.3s ease;
-        }
-        
-        .popup-btn.blue {
-            background-color: #007bff;
-        }
-        
-        .popup-btn.red {
-            background-color: red;
-        }
-        
-        .popup-btn:hover {
-            opacity: 0.9;
-        }
-        
-
-        
-        
+    
+    
     </style>
 </head>
 <body>
@@ -540,30 +464,35 @@
             <!-- Assembly Creation Form -->
             <div class="form">
                 <div class="form-group">
-                    <label>Select Parts Database</label>
+                    <label>What type of assembly/part
+                        does this piece terminate</label>
                     <select>
-                        <option>Database Menu</option>
-                        <option>Hubbell</option> 
-                        <option>MacLean</option> 
-                        <option>Georgia Power</option> 
-                        <option>MidAmerican</option> 
-                        <option>CenterPoint</option> 
-                        <option>Blattner</option> 
+                        <option>Pole Vang</option>
+                        <option>Pole Bracket</option> 
+                        <option>Pole Leg</option> 
+                        <option>Tower Vang</option> 
+                        <option>Tower Angle</option> 
+                        <option>Tower Leg</option> 
+                        <option>Conductor</option> 
+                        <option>Insulator</option> 
+                        <option>Eye Nut</option> 
+                        <option>Extension Strap</option> 
+                        <option>Line & Tower Hardware</option> 
+                        <option>Suspension Clamps</option> 
+                        <option>Deadends</option> 
+                        <option>Splice or Sleeve</option> 
+                        <option>Terminals & Taps</option> 
+                        <option>Conductor Protection</option> 
+                        <option>Construction Accessories & Fasteners</option> 
+
                     </select>
                 </div>
+                
                 <div class="form-group">
-                    <label>Enter Assembly Name</label>
-                    <input type="text">
-                </div>
-                <div class="form-group">
-                    <label>Total quantity of parts in assembly</label>
-                    <input type="number">
-                </div>
-                <div class="form-group">
-                    <label>Filter through to select type of part number</label>
+                    <label>Select dimensions that is being connected</label>
                     <select id="part-type-select">
                         <option value="">Select an Option</option>
-                        <option value="line-tower">Line & Tower Hardware</option> 
+                        <option value="line-tower">Pole Vang</option> 
                         <option value="suspension">Suspension Clamps</option>
                         <option value="deadends">Deadends</option>
                         <option value="splices">Splices & Sleeves</option>
@@ -601,16 +530,6 @@
     </div>
 
 
-    <div class="popup-overlay" id="popup-overlay">
-        <div class="popup" id="popup1">
-            <div class="popup-header">
-                <span class="popup-close" id="popup-close">&times;</span>
-                <h3>Is current piece the last of the assembly in any direction?</h3>
-            </div>
-            <button class="popup-btn blue" id="yes-btn">Yes</button>
-            <button class="popup-btn red" id="no-btn">No</button>
-        </div>
-    </div>
 
     
     
@@ -661,36 +580,6 @@
     
     </script>
 
-    <script>
-        // Get elements
-const saveButton = document.getElementById('save-btn');
-const popupOverlay = document.getElementById('popup-overlay');
-const popupClose = document.getElementById('popup-close');
-const yesButton = document.getElementById('yes-btn'); // New reference to the "Yes" button
-
-// Show popup when clicking "Save"
-saveButton.addEventListener('click', () => {
-    popupOverlay.style.display = 'flex'; // Show overlay
-    document.getElementById('popup1').style.display = 'block'; // Show popup
-});
-
-// Close popup when clicking "x" in popup header
-popupClose.addEventListener('click', () => {
-    popupOverlay.style.display = 'none'; // Hide overlay
-});
-
-// Close popup when clicking outside of it
-popupOverlay.addEventListener('click', (event) => {
-    if (event.target === popupOverlay) {
-        popupOverlay.style.display = 'none'; // Hide overlay
-    }
-});
-
-// Redirect to another page when clicking "Yes" button
-yesButton.addEventListener('click', () => {
-    window.location.href = '/c3/'; // Replace with your target URL
-});
-
-    </script>
+ 
 </body>
 </html>

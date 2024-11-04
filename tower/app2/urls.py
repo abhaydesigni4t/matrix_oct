@@ -20,6 +20,7 @@ urlpatterns = [
     path('tab6/', views.tab6, name='tab6'),
     path('c1/', views.c1, name='c1'),
     path('c2/', views.c2, name='c2'),
+    path('c3/', views.c3, name='c3'),
     path('a1/',views.a1, name='a1'),
     
 

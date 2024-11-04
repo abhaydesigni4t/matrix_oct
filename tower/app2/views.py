@@ -55,5 +55,8 @@ def c1(request):
 def c2(request):
     return render(request,'app2/c2.html')
 
+def c3(request):
+    return render(request,'app2/c3.html')
+
 def a1(request):
     return render(request,'app2/a1.html')
