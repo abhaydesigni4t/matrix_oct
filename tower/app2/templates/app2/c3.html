@@ -409,7 +409,7 @@
                     <a href="#">Create</a>
                     <div class="header-dropdown">
                         <a href="{% url 'c1' %}">Assembly</a>
-                        <a href="#">Hardware</a>
+                        <a href="{% url 'c2' %}">Hardware</a>
                     </div>
                 </div>
 
@@ -492,48 +492,16 @@
                     <label>Select dimensions that is being connected</label>
                     <select id="part-type-select">
                         <option value="">Select an Option</option>
-                        <option value="line-tower">Pole Vang</option> 
-                        <option value="suspension">Suspension Clamps</option>
-                        <option value="deadends">Deadends</option>
-                        <option value="splices">Splices & Sleeves</option>
-                        <option value="terminals">Terminals & Taps</option>
-                        <option value="conductor">Conductor Protection</option>
+            
                     </select>
                 </div>
     
-                <!-- Additional Dropdown for Line & Tower Hardware -->
-                <div class="form-group hardware-options" style="display: none;">
-                    
-                    <select>
-                        <option>Clevis Eye</option>
-                        <option>Clevis-Clevis </option>
-                        <option>Clevis Eye Extension Link</option>
-                        <option>Clevis Eye </option>
-                        <option>Corona Free Clevis Clevis </option>
-                        <option>Hot Line Clevis Clevis </option>
-                        <option>Hot Line Extension Clevis Eye </option>
-                        <option>Hot Line Oval Eye PAD Eye </option>
-                        <option>Hot Line Socket Clevis </option>
-                        <option>Hot Line SocketEye </option>
-                        <option>Hot Line Socket Y-Clevis </option>
-                        <option>Hot Line Y-Clevis Clevis Eye  </option>
-                        <option>Socket Eye </option>
-                        <option>Hot Line Y-Clevis Eye </option>
-                        <option>Hot Line Y-Y Clevis </option>
-                        <option>Socket Clevis </option>
-                        <option>Socket -Socket </option>
-                    </select>
-                </div>
                 <button class="save-btn" id="save-btn">Save</button>
             </div>
         </div>
     </div>
 
 
-
-    
-    
-    
     {% comment %} <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 Your Company Name. All Rights Reserved.</p>
@@ -581,5 +549,16 @@
     </script>
 
  
+    <script>
+        // Get the save button element by its ID
+        document.getElementById("save-btn").addEventListener("click", function() {
+            // Redirect to the target URL
+            window.location.href = '/c4/'; // Replace with your target URL if different
+        });
+
+
+    </script>
+
+    
 </body>
 </html>

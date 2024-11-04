@@ -230,35 +230,146 @@
         }
         
 
-        .container-wrapper {
+        .chart-container {
+            text-align: center;
+            margin: 5px 0;
+            margin-top: 90px;
+        }
+        
+        .chart-image-wrapper {
             display: flex;
-            justify-content: flex-start; /* Align items to the start */
-            padding: 1px;
-            margin-top: 80px; /* Adjust based on your header height */
-            margin-left: 250px; /* Increase left margin */
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            max-width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
-        .content-container {
+        .chart-image {
+            width: 50%; /* Base width for the left image */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin: 0 10px;
+            object-fit: cover;
+        }
+        
+        /* Target the second image to make it smaller */
+        .chart-image-wrapper .chart-image:last-child {
+            width: 33%; /* Adjust this to make the right image smaller */
+            margin-left:250px;
+        }
+        /* Popup Overlay - Hidden by Default */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        /* Popup Style */
+        .popup {
             background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 45%; /* Adjust width as needed */
-            padding: 10px;
-            margin-top: 20px;
-            height: 400px; /* Set your desired height here */
-            margin-right: 10px; /* Minimal space between containers */
+            padding: 20px;
+            border-radius: 0 0 10px 10px; /* Rounded only at the bottom */
+            text-align: center;
+            width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex; /* Ensure flex for content alignment */
+            flex-direction: column; /* Stack elements vertically */
+            position: relative;
         }
         
-        .container-header {
-            background-color: #ffcc00;
+        /* Popup Header Style */
+        .popup .popup-header {
+            background-color: #ffec00;
             color: black;
-            font-weight: bold;
+            font-size: 12px;
             padding: 10px;
-            border-radius: 5px 5px 0 0;
-            margin: -10px -10px 10px -10px;
+            display: flex;
+            justify-content: center; /* Center heading and close button */
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            position: relative;
         }
-       
-       
+        
+        .popup .popup-header h3 {
+            text-align: center; /* Center-align heading text */
+            flex: 1;
+        }
+        
+        /* Close Button Position */
+        .popup-close {
+            position: absolute;
+            right: 10px; /* Position close button on the right */
+            top: 10px;
+            font-size: 24px;
+            color: black;
+            cursor: pointer;
+        }
+        
+        /* Popup Title Style */
+        .popup h3 {
+            font-size: 16px;
+            color: black;
+            margin: 0;
+        }
+        
+        /* Popup Buttons Container */
+        .popup-buttons {
+            display: flex;
+            justify-content: center; /* Center align buttons horizontally */
+            margin-top: 20px; /* Space above the buttons */
+        }
+        
+        /* Popup Button Style */
+        .popup .popup-btn {
+            padding: 10px 20px;
+            margin: 5px; /* Space between buttons */
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 10px;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        
+        /* Button Colors */
+        .popup-btn.blue {
+            background-color: #007bff;
+        }
+        
+        .popup-btn.yellow {
+            background-color: #ffec00; /* Match the header */
+        }
+        
+        .popup-btn.red {
+            background-color: red;
+        }
+        
+        /* Button Hover Effect */
+        .popup-btn:hover {
+            opacity: 0.9;
+        }
+        
+        /* Specific Centering for Continue Button */
+        #continue-btn {
+            margin: 0 auto; /* Center the Continue button */
+        }
+        
+        
+
     </style>
 </head>
 <body>
@@ -382,7 +493,7 @@
      <div class="sidebar">
         <button class="dropdown-btn">+ New</button>
         <div class="dropdown-content">
-            <a href="{% url 'blank_page' %}">Blank Document</a>
+            <a href="#">Blank Document</a>
             <a href="#">Create from Template</a>
         </div>
         
@@ -398,23 +509,41 @@
     </div>
 
 
-    <div class="container-wrapper">
-        <div class="content-container">
-            <div class="container-header">Material Order</div>
-            <!-- Add content here -->
-            
+    <div class="chart-container" id="chartContainer">
+    <div class="chart-image-wrapper">
+        <img src="{% static 'app2/images/chart.png' %}" alt="Chart" class="chart-image">
+    </div>
+</div>
+
+<!-- First Popup -->
+<div class="popup-overlay" id="popup-overlay" style="display: none;">
+    <div class="popup" id="popup1">
+        <div class="popup-header">
+            <span class="popup-close" id="popup1-close">&times;</span>
+            <h3>Part ‘XXXXXX’ anchor shackle does not fit part ‘XXXXXX’ insulator. Continue?</h3>
         </div>
-        <div class="content-container">
-            <div class="container-header">Assemblies Tab</div>
-            <!-- Add content here -->
-           
+        <div class="popup-buttons">
+            <button class="popup-btn blue" id="yes-btn">Yes</button>
+            <button class="popup-btn yellow" id="examine-btn">Examine</button>
+            <button class="popup-btn red" id="cancel-btn">Cancel</button>
         </div>
     </div>
+</div>
 
-    {% comment %} <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2024 Your Company Name. All Rights Reserved.</p>
-    </footer> {% endcomment %}
+<!-- Second Popup -->
+<div class="popup-overlay" id="popup2-overlay" style="display: none;">
+    <div class="popup" id="popup2">
+        <div class="popup-header">
+            <span class="popup-close" id="popup2-close">&times;</span>
+            <h3>Fit check is within range</h3>
+        </div>
+        <div class="popup-buttons">
+            <button class="popup-btn blue" id="continue-btn">Continue</button>
+        </div>
+    </div>
+</div>
+
+
 
 
     <script>
@@ -435,6 +564,65 @@
             }
         });
     </script>
+
+    <script>
+        // Open the overlay and first popup when triggered
+        document.getElementById("chartContainer").addEventListener("click", function() {
+            document.getElementById("popup-overlay").style.display = "flex";
+            document.getElementById("popup1").style.display = "flex"; // Show first popup
+        });
+    
+        // Close all popups when the close button in popup1 is clicked
+        document.getElementById("popup1-close").addEventListener("click", function() {
+            closeAllPopups();
+        });
+    
+        // Show popup2 when any button in popup1 is clicked
+        document.getElementById("yes-btn").addEventListener("click", function() {
+            openPopup2();
+        });
+        document.getElementById("examine-btn").addEventListener("click", function() {
+            openPopup2();
+        });
+        document.getElementById("cancel-btn").addEventListener("click", function() {
+            openPopup2();
+        });
+    
+        // Function to open the second popup and hide the first
+        function openPopup2() {
+            document.getElementById("popup-overlay").style.display = "none"; // Hide first popup overlay
+            document.getElementById("popup1").style.display = "none"; // Hide first popup
+            document.getElementById("popup2-overlay").style.display = "flex"; // Show second popup overlay
+            document.getElementById("popup2").style.display = "flex"; // Show second popup
+        }
+    
+        // Close all popups when the close button in popup2 is clicked
+        document.getElementById("popup2-close").addEventListener("click", function() {
+            closeAllPopups();
+        });
+    
+        // Close all popups and overlay when clicking outside the popup
+        document.getElementById("popup-overlay").addEventListener("click", function(e) {
+            if (e.target === this) {
+                closeAllPopups();
+            }
+        });
+    
+        document.getElementById("popup2-overlay").addEventListener("click", function(e) {
+            if (e.target === this) {
+                closeAllPopups();
+            }
+        });
+    
+        // Function to close all popups and the overlays
+        function closeAllPopups() {
+            document.getElementById("popup-overlay").style.display = "none";
+            document.getElementById("popup1").style.display = "none";
+            document.getElementById("popup2-overlay").style.display = "none";
+            document.getElementById("popup2").style.display = "none";
+        }
+    </script>
+
 
 </body>
 </html>

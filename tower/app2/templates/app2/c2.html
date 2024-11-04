@@ -286,7 +286,7 @@
         }
         
         .tab.active {
-            background-color: white;
+            background-color: #007bff;
             border-bottom: 1px solid white;
         }
         
@@ -437,7 +437,7 @@
                     <a href="#">Create</a>
                     <div class="header-dropdown">
                         <a href="{% url 'c1' %}">Assembly</a>
-                        <a href="#">Hardware</a>
+                        <a href="{% url 'c2' %}">Hardware</a>
                     </div>
                 </div>
 
@@ -493,6 +493,7 @@
             <label for="name">Enter Name</label>
             <input type="text" id="name" name="name">
 
+            <h4>Type of Hardware</h4>
             <div class="tabs">
                 <button class="tab active">Line &amp; Tower Hardware</button>
                 <button class="tab">Suspension Clamps</button>

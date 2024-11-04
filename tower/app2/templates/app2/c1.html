@@ -485,7 +485,7 @@
                     <a href="#">Create</a>
                     <div class="header-dropdown">
                         <a href="{% url 'c1' %}">Assembly</a>
-                        <a href="#">Hardware</a>
+                        <a href="{% url 'c2' %}">Hardware</a>
                     </div>
                 </div>
 
@@ -663,33 +663,33 @@
 
     <script>
         // Get elements
-const saveButton = document.getElementById('save-btn');
-const popupOverlay = document.getElementById('popup-overlay');
-const popupClose = document.getElementById('popup-close');
-const yesButton = document.getElementById('yes-btn'); // New reference to the "Yes" button
+        const saveButton = document.getElementById('save-btn');
+        const popupOverlay = document.getElementById('popup-overlay');
+        const popupClose = document.getElementById('popup-close');
+        const yesButton = document.getElementById('yes-btn'); // New reference to the "Yes" button
 
-// Show popup when clicking "Save"
-saveButton.addEventListener('click', () => {
-    popupOverlay.style.display = 'flex'; // Show overlay
-    document.getElementById('popup1').style.display = 'block'; // Show popup
-});
+        // Show popup when clicking "Save"
+        saveButton.addEventListener('click', () => {
+            popupOverlay.style.display = 'flex'; // Show overlay
+            document.getElementById('popup1').style.display = 'block'; // Show popup
+        });
 
-// Close popup when clicking "x" in popup header
-popupClose.addEventListener('click', () => {
-    popupOverlay.style.display = 'none'; // Hide overlay
-});
+        // Close popup when clicking "x" in popup header
+        popupClose.addEventListener('click', () => {
+            popupOverlay.style.display = 'none'; // Hide overlay
+        });
 
-// Close popup when clicking outside of it
-popupOverlay.addEventListener('click', (event) => {
-    if (event.target === popupOverlay) {
-        popupOverlay.style.display = 'none'; // Hide overlay
-    }
-});
+        // Close popup when clicking outside of it
+        popupOverlay.addEventListener('click', (event) => {
+            if (event.target === popupOverlay) {
+                popupOverlay.style.display = 'none'; // Hide overlay
+            }
+        });
 
-// Redirect to another page when clicking "Yes" button
-yesButton.addEventListener('click', () => {
-    window.location.href = '/c3/'; // Replace with your target URL
-});
+        // Redirect to another page when clicking "Yes" button
+        yesButton.addEventListener('click', () => {
+            window.location.href = '/c3/'; // Replace with your target URL
+        });
 
     </script>
 </body>
