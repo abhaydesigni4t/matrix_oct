@@ -229,24 +229,23 @@
             background-color: #ffcc00;
         }
         
-
         .container-wrapper {
             display: flex;
-            justify-content: flex-start; /* Align items to the start */
+            justify-content: flex-start;
             padding: 1px;
-            margin-top: 80px; /* Adjust based on your header height */
-            margin-left: 250px; /* Increase left margin */
+            margin-top: 90px;
+            margin-left: 400px;
         }
         
         .content-container {
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 45%; /* Adjust width as needed */
+            width: 80%;
+            height: 250px;
             padding: 10px;
             margin-top: 20px;
-            height: 400px; /* Set your desired height here */
-            margin-right: 10px; /* Minimal space between containers */
+            position: relative;
         }
         
         .container-header {
@@ -257,8 +256,46 @@
             border-radius: 5px 5px 0 0;
             margin: -10px -10px 10px -10px;
         }
-       
-       
+        
+        /* Strength Check Status Lines */
+        .status-line {
+            display: block;  /* Makes sure each line appears on its own row */
+            margin-top: 20px;  /* Space between lines */
+            text-align: center;  /* Centers the text */
+            font-size: 16px;
+        }
+        
+        .passing-check, .failing-check {
+            padding: 0 10px;
+        }
+        
+        /* Button Group */
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            margin-top: 30px;
+            margin-right: 250px;
+        }
+        
+        .apply-btn, .cancel-btn {
+            padding: 8px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        
+        .apply-btn {
+            background-color: #0056b3;
+            color: white;
+        }
+        
+        .cancel-btn {
+            background-color: #f44336;
+            color: white;
+        }
+    
     </style>
 </head>
 <body>
@@ -397,25 +434,28 @@
 
     </div>
 
-
     <div class="container-wrapper">
         <div class="content-container">
-            <div class="container-header">Material Order</div>
-            <!-- Add content here -->
-            
-        </div>
-        <div class="content-container">
-            <div class="container-header">Assemblies Tab</div>
-            <!-- Add content here -->
-           
+            <div class="container-header">Basic Strength Check</div>
+    
+            <!-- Strength Check Status Lines -->
+            <div class="status-line">
+                <span class="passing-check">_______________ parts passing strength check</span>
+            </div>
+            <div class="status-line">
+                <span class="failing-check">_______________ parts failing strength check</span>
+            </div>
+    
+            <div class="button-group">
+                <button class="apply-btn">View Details</button>
+                <button class="cancel-btn">Cancel</button>
+            </div>
         </div>
     </div>
-
-    {% comment %} <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2024 Your Company Name. All Rights Reserved.</p>
-    </footer> {% endcomment %}
-
+    
+    
+    
+    
 
     <script>
         // Toggle dropdown on button click
@@ -435,6 +475,6 @@
             }
         });
     </script>
-
+    
 </body>
 </html>

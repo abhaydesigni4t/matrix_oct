@@ -229,24 +229,23 @@
             background-color: #ffcc00;
         }
         
-
         .container-wrapper {
             display: flex;
-            justify-content: flex-start; /* Align items to the start */
+            justify-content: flex-start;
             padding: 1px;
-            margin-top: 80px; /* Adjust based on your header height */
-            margin-left: 250px; /* Increase left margin */
+            margin-top: 90px;
+            margin-left: 400px;
         }
         
         .content-container {
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 45%; /* Adjust width as needed */
+            width: 80%;
+            height:300px;
             padding: 10px;
             margin-top: 20px;
-            height: 400px; /* Set your desired height here */
-            margin-right: 10px; /* Minimal space between containers */
+            position: relative;
         }
         
         .container-header {
@@ -257,8 +256,43 @@
             border-radius: 5px 5px 0 0;
             margin: -10px -10px 10px -10px;
         }
-       
-       
+        
+        .form {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .form-group label {
+            flex: 1;
+            margin-right: 10px;
+        }
+        
+        .form-group select,
+        .form-group input {
+            flex: 2;
+            padding: 5px;
+        }
+        
+        .save-btn {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+            border-radius:5px;
+        }
+
+        
+        
+    
     </style>
 </head>
 <body>
@@ -397,25 +431,36 @@
 
     </div>
 
-
     <div class="container-wrapper">
         <div class="content-container">
-            <div class="container-header">Material Order</div>
-            <!-- Add content here -->
-            
-        </div>
-        <div class="content-container">
-            <div class="container-header">Assemblies Tab</div>
-            <!-- Add content here -->
+            <div class="container-header">In-Depth Strength Check</div>
+    
+            <!-- Assembly Creation Form -->
+            <div class="form">
+                <div class="form-group">
+                    <label>Input strength/tension value assembly must meet</label>
+                    <select id="select-assembly">
+                        <!-- No options inside the select element -->
+                    </select>
+                </div>
+            </div>
+    
+            <div class="form">
+                <div class="form-group">
+                    <label>Select assembly to do strength check on</label>
+                    <select id="select-assembly">
+                        <!-- No options inside the select element -->
+                    </select>
+                </div>
+            </div>
+    
            
+    
+            <!-- Save Button -->
+            <button class="save-btn">Continue</button>
         </div>
     </div>
-
-    {% comment %} <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2024 Your Company Name. All Rights Reserved.</p>
-    </footer> {% endcomment %}
-
+    
 
     <script>
         // Toggle dropdown on button click
@@ -435,6 +480,6 @@
             }
         });
     </script>
-
+    
 </body>
 </html>

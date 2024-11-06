@@ -66,3 +66,15 @@ def c5(request):
 
 def a1(request):
     return render(request,'app2/a1.html')
+
+def a2(request):
+    return render(request,'app2/a2.html')
+
+def a3(request):
+    return render(request,'app2/a3.html')
+
+def a4(request):
+    return render(request,'app2/a4.html')
+
+def a5(request):
+    return render(request,'app2/a5.html')

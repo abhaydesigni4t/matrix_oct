@@ -289,6 +289,81 @@
             margin: 20px auto 0;
             border-radius:5px;
         }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            margin-top:20px;
+        }
+        
+        .popup {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .popup-header {
+            background-color: #ffec00;
+            color: black;
+            font-size: 14px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: black;
+        }
+        
+        .popup-btn.blue {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top:10px;
+        }
+        
+        .popup-btn.red {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top:10px;
+
+        }
+        
+        .popup-btn:hover {
+            opacity: 0.9;
+        }
+        
+
+        
         
     
     </style>
@@ -390,9 +465,9 @@
                     <a href="#">Analyze</a>
                     <div class="header-dropdown">
                         <a href="{% url 'a1' %}">Fit Check</a>
-                        <a href="#">Part Swap Check</a>
-                        <a href="#">Basic Strength Check</a>
-                        <a href="#">In-Depth Strength Check</a>
+                        <a href="{% url 'a2' %}">Part Swap Check</a>
+                        <a href="{% url 'a3' %}">Basic Strength Check</a>
+                        <a href="{% url 'a5' %}">In-Depth Strength Check</a>
                     </div>
                 </div>
 
@@ -429,7 +504,6 @@
 
     </div>
 
-  
     <div class="container-wrapper">
         <div class="content-container">
             <div class="container-header">Fit Check</div>
@@ -438,20 +512,38 @@
             <div class="form">
                 <div class="form-group">
                     <label>Select Assembly To Perform Fit Check</label>
-                    <select>
-                        {% comment %} <option>Database Menu</option> {% endcomment %}
-                        
+                    <select id="select-assembly">
+                        <!-- No options inside the select element -->
                     </select>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- First Popup Overlay -->
+<div class="popup-overlay" id="popup-overlay1">
+    <div class="popup" id="popup1">
+        <div class="popup-header">
+            <span class="popup-close" id="popup-close1">&times;</span>
+            <h3>All parts in assembly ‘XXXXX’ fit</h3>
+        </div>
+        <button class="popup-btn blue" id="finish-btn">Finish</button>
+    </div>
+</div>
+
+<!-- Second Popup Overlay -->
+<div class="popup-overlay" id="popup-overlay2" style="display: none;">
+    <div class="popup" id="popup2">
+        <div class="popup-header">
+            <span class="popup-close" id="popup-close2">&times;</span>
+            <h3>View report for parts in assembly ‘XXXXX’ that do not fit?</h3>
+        </div>
+        <button class="popup-btn blue" id="yes-btn">Yes</button>
+        <button class="popup-btn red" id="cancel-btn">Cancel</button> <!-- Added red class here -->
+    </div>
+</div>
+
     
-    {% comment %} <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2024 Your Company Name. All Rights Reserved.</p>
-    </footer> {% endcomment %}
 
 
     <script>
@@ -473,5 +565,49 @@
         });
     </script>
 
+    <script>
+        // Get elements
+        const selectAssembly = document.getElementById("select-assembly");
+        const popupOverlay1 = document.getElementById("popup-overlay1");
+        const popupOverlay2 = document.getElementById("popup-overlay2");
+        const popupClose1 = document.getElementById("popup-close1");
+        const popupClose2 = document.getElementById("popup-close2");
+        const finishBtn = document.getElementById("finish-btn");
+    
+        // Show first popup on dropdown focus
+        selectAssembly.addEventListener("focus", function() {
+            popupOverlay1.style.display = "flex";
+        });
+    
+        // Close first popup
+        popupClose1.addEventListener("click", function() {
+            popupOverlay1.style.display = "none";
+        });
+    
+        // Close second popup
+        popupClose2.addEventListener("click", function() {
+            popupOverlay2.style.display = "none";
+        });
+    
+        // Show second popup on "Finish" button click
+        finishBtn.addEventListener("click", function() {
+            popupOverlay1.style.display = "none";  // Hide the first popup
+            popupOverlay2.style.display = "flex";  // Show the second popup
+        });
+    
+        // Additional close for outside click
+        window.addEventListener("click", function(event) {
+            if (event.target === popupOverlay1) {
+                popupOverlay1.style.display = "none";
+            }
+            if (event.target === popupOverlay2) {
+                popupOverlay2.style.display = "none";
+            }
+        });
+    </script>
+    
+    
+    
+    
 </body>
 </html>

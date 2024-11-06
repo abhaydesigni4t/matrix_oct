@@ -24,6 +24,11 @@ urlpatterns = [
     path('c4/', views.c4, name='c4'),
     path('c5/', views.c5, name='c5'),
     path('a1/',views.a1, name='a1'),
+    path('a2/',views.a2, name='a2'),
+    path('a3/',views.a3, name='a3'),
+    path('a4/',views.a4, name='a4'),
+    path('a5/',views.a5, name='a5'),
+
     
 
 ]
