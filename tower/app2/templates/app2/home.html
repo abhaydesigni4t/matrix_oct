@@ -304,7 +304,7 @@
                         <div class="dropdown-item">
                             <a href="#">Hardware</a>
                             <div class="nested-dropdown hardware-dropdown">
-                                <a href="#">Via Cutsheet</a>
+                                <a href="#" id="via-cutsheet">Via Cutsheet</a>
                                 <a href="#">Via Excel Dimensions</a>    
                             </div>
                         </div>
@@ -318,6 +318,9 @@
                         <a href="#">Coversheet</a>
                     </div>
                 </div>
+
+                <input type="file" id="fileInput" accept="image/*" style="display: none;" />
+
                 
                 <div>
                     <a href="#">Tabs</a>
@@ -410,6 +413,44 @@
                 dropdownContent.style.display = 'none';
             }
         });
+    </script>
+
+    <script>
+        document.getElementById('via-cutsheet').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent default link behavior
+        
+            // Programmatically trigger the file input click
+            document.getElementById('fileInput').click();
+        });
+        
+        // Handle file input change event
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            // Check if files were selected
+            const files = event.target.files;
+        
+            if (files.length > 0) {
+                // If a folder is selected, log the file names inside
+                if (files[0].webkitRelativePath) {
+                    alert('Folder selected. Folder path: ' + files[0].webkitRelativePath);
+                } else {
+                    // If an image file is selected, you can display it or do something else
+                    const imageContainer = document.createElement('div');
+                    for (let file of files) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = URL.createObjectURL(file);  // Generate a URL for the image file
+                        imgElement.style.width = '100px';  // Adjust image size
+                        imageContainer.appendChild(imgElement);
+                    }
+                    document.body.appendChild(imageContainer);  // Append images to the page
+                }
+            } else {
+                alert('No files selected!');
+            }
+        });
+        
+        
+
+
     </script>
 </body>
 </html>

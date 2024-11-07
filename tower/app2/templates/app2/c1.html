@@ -574,31 +574,35 @@
     
                 <!-- Additional Dropdown for Line & Tower Hardware -->
                 <div class="form-group hardware-options" style="display: none;">
-                    
-                    <select>
-                        <option>Clevis Eye</option>
-                        <option>Clevis-Clevis </option>
-                        <option>Clevis Eye Extension Link</option>
-                        <option>Clevis Eye </option>
-                        <option>Corona Free Clevis Clevis </option>
-                        <option>Hot Line Clevis Clevis </option>
-                        <option>Hot Line Extension Clevis Eye </option>
-                        <option>Hot Line Oval Eye PAD Eye </option>
-                        <option>Hot Line Socket Clevis </option>
-                        <option>Hot Line SocketEye </option>
-                        <option>Hot Line Socket Y-Clevis </option>
-                        <option>Hot Line Y-Clevis Clevis Eye  </option>
-                        <option>Socket Eye </option>
-                        <option>Hot Line Y-Clevis Eye </option>
-                        <option>Hot Line Y-Y Clevis </option>
-                        <option>Socket Clevis </option>
-                        <option>Socket -Socket </option>
+                    <select id="hardware-options-dropdown">
+                        <option value="Clevis Eye">Clevis Eye</option>
+                        <option value="Clevis-Clevis">Clevis-Clevis</option>
+                        <option value="Clevis Eye Extension Link">Clevis Eye Extension Link</option>
+                        <option value="Corona Free Clevis Clevis">Corona Free Clevis Clevis</option>
+                        <option value="Hot Line Clevis Clevis">Hot Line Clevis Clevis</option>
+                        <option value="Hot Line Extension Clevis Eye">Hot Line Extension Clevis Eye</option>
+                        <option value="Hot Line Oval Eye PAD Eye">Hot Line Oval Eye PAD Eye</option>
+                        <option value="Hot Line Socket Clevis">Hot Line Socket Clevis</option>
+                        <option value="Hot Line SocketEye">Hot Line SocketEye</option>
+                        <option value="Hot Line Socket Y-Clevis">Hot Line Socket Y-Clevis</option>
+                        <option value="Hot Line Y-Clevis Clevis Eye">Hot Line Y-Clevis Clevis Eye</option>
+                        <option value="Socket Eye">Socket Eye</option>
+                        <option value="Hot Line Y-Clevis Eye">Hot Line Y-Clevis Eye</option>
+                        <option value="Hot Line Y-Y Clevis">Hot Line Y-Y Clevis</option>
+                        <option value="Socket Clevis">Socket Clevis</option>
+                        <option value="Socket -Socket">Socket -Socket</option>
                     </select>
                 </div>
+    
                 <button class="save-btn" id="save-btn">Save</button>
             </div>
         </div>
     </div>
+    
+    <!-- Hidden File Input to Trigger Folder Selection -->
+    <input type="file" id="fileInput" style="display: none;" webkitdirectory accept="image/*" />
+    
+    
 
 
     <div class="popup-overlay" id="popup-overlay">
@@ -692,5 +696,71 @@
         });
 
     </script>
+
+    <script>
+        // Track if any part other than "Clevis Eye" is selected
+let otherOptionSelected = false;
+
+// Listen for changes in the part type dropdown
+document.getElementById('part-type-select').addEventListener('change', function(event) {
+    const selectedOption = event.target.value;
+
+    // Mark that other options are selected (this will allow Clevis Eye to open the folder)
+    if (selectedOption !== "") {
+        otherOptionSelected = true;
+    } else {
+        otherOptionSelected = false; // Reset if no part is selected
+    }
+});
+
+// Listen for changes in the hardware options dropdown
+document.getElementById('hardware-options-dropdown').addEventListener('change', function(event) {
+    const selectedHardwareOption = event.target.value;
+
+    // Check if "Clevis Eye" is selected
+    if (selectedHardwareOption === 'Clevis Eye') {
+        if (otherOptionSelected) {
+            // Trigger the file input click to open the folder directly
+            event.preventDefault();  // Prevent default action to ensure we open the file picker
+            document.getElementById('fileInput').click();
+        } else {
+            // If "Clevis Eye" is selected before any other option, prompt the user
+            alert("Please select another option first.");
+        }
+    }
+});
+
+// Handle file input change event (when a file or folder is selected)
+document.getElementById('fileInput').addEventListener('change', function(event) {
+    // Get the files selected from the folder
+    const files = event.target.files;
+
+    if (files.length > 0) {
+        const imageContainer = document.createElement('div');
+        
+        // Loop through the files and display them if they are images
+        for (let file of files) {
+            if (file.type.startsWith('image/')) {
+                // If an image file is selected, you can display it or do something else
+                const imgElement = document.createElement('img');
+                imgElement.src = URL.createObjectURL(file);  // Generate a URL for the image file
+                imgElement.style.width = '100px';  // Adjust image size
+                imgElement.style.margin = '5px';  // Add some margin
+                imageContainer.appendChild(imgElement);
+            } else {
+                // If a non-image file is selected, handle it (optional)
+                console.log('Non-image file selected:', file.name);
+            }
+        }
+
+        // Append images to the page
+        document.body.appendChild(imageContainer);
+    } else {
+        alert('No files selected!');
+    }
+});
+
+    </script>
+    
 </body>
 </html>

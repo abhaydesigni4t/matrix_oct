@@ -240,7 +240,7 @@
         }
         
         .header {
-            background-color: #ffffcc;
+            background-color: #ffcc00;
             padding: 10px;
             border-bottom: 1px solid #ccc;
             display: flex;
@@ -286,7 +286,7 @@
         }
         
         .tab.active {
-            background-color: #007bff;
+            background-color: #73b6ff;
             border-bottom: 1px solid white;
         }
         
@@ -346,6 +346,9 @@
             background-color: #0056b3;
         }
     
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -492,7 +495,7 @@
         <div class="content">
             <label for="name">Enter Name</label>
             <input type="text" id="name" name="name">
-
+    
             <h4>Type of Hardware</h4>
             <div class="tabs">
                 <button class="tab active">Line &amp; Tower Hardware</button>
@@ -502,9 +505,10 @@
                 <button class="tab">Terminals &amp; Taps</button>
                 <button class="tab">Conductor Protection</button>
             </div>
-
+    
             <div class="list-box">
-                <select multiple>
+                <!-- Line & Tower Hardware Options -->
+                <select multiple id="line-tower-options">
                     <option>Clevis Eye</option>
                     <option>Clevis-Clevis</option>
                     <option>Clevis Eye</option>
@@ -514,13 +518,76 @@
                     <option>Hot Line Clevis Clevis</option>
                     <option>Hot Line Extension Clevis Eye</option>
                 </select>
-            </div>
+    
+                <!-- Suspension Clamps Options -->
+                <select multiple id="suspension-clamps-options" class="hidden">
+                    <option>Corona Free High Temperature Clamp </option>
+                    <option>Double Groove Corona Free Clamp </option>
+                    <option>Angle Clamp</option>
+                    <option>Clamp</option>
+                    <option>Double Groove Clamp</option>
+                    <option>Trunnion Clamp</option>
+                    <option>Trunnion Clamp, Hi-Temperature</option>
+                    <option>Double Groove Trunnion Clampp</option>
+                
+                </select>
+    
+                <!-- Deadends Options -->
+                <select multiple id="deadends-options" class="hidden">
+                    <option>Quadrant Strain Clamp </option>
+                    <option>Double Groove Strain Clamp </option>
+                    <option>Uni-Grip ® Eye Type, Single Tongue-ACSR</option>
+                    <option>Uni-Grip ® Eye Type, Double Tongue-ACSR</option>
+                    <option>Uni-Grip ® Adjustable Clevis Type-ACSR</option>
+                    <option>Uni-Grip ® Eye Type, Single Tongue- Alloy & ACAR</option>
+                    <option>Uni-Grip ® Eye Type, Double Tongue- Alloy & ACAR</option>
+                    <option>Uni-Grip ® Adjustable Clevis Type- Alloy & ACAR</option>
+                
+                </select>
+    
+                <!-- Splices & Sleeves Options -->
+                <select multiple id="splices-sleeves-options" class="hidden">
+                    <option>Uni-Grip Full-Tension Splice-ACSR</option>
+                    <option>Uni-Grip Full-Tension Splice-Alloy & ACSR</option>
+                    <option>Uni-Grip ® Full-Tension Splice-AAC</option>
+                    <option>Uni-Grip Jumper Loop Partial Tension Splice</option>
+                    <option>Repair Sleeve-AAC, AAAC, ACAR & ASCR </option>
+                    <option>Repair Sleeve-ACSS</option>
+                    <option>Repair Sleeve-ACSS/TW</option>
+                    <option>Full Tension Splice Assembly-ACSR</option>
 
+                </select>
+    
+                <!-- Terminals & Taps Options -->
+                <select multiple id="terminals-taps-options" class="hidden">
+                    <option>Straight Pad for AAC, AAAC, ACAR & ASCR Conductor</option>
+                    <option>15 Degree Pad for AAC, AAAC, ACAR & ASCR Conductor</option>
+                    <option>Cable to Pad, Open Run, AAC, AAAC, ACAR & ASCR </option>
+                    <option>Conductor</option>
+                    <option>Cable to Pad, Open Run, ACSS</option>
+                    <option>Cable to Pad, Open Run, ACSS/TW</option>
+                    <option>Cable to Pad, Open Run, AAC, ALLOY, ACAR & ASCR Conductor </option>
+                    <option>15 Degree Terminal Alumoweld ® & EHS Steel </option>
+
+                </select>
+    
+                <!-- Conductor Protection Options -->
+                <select multiple id="conductor-protection-options" class="hidden">
+                    <option>Vibration Damper 4R Stockbridge</option>
+                    <option>Aluminum Armor Rods</option>
+                    <option>Galvanized Steel Armor Rods</option>
+                    <option>Aluminum-Clad Steel Armor Rods</option>
+                    <option>Aluminum Line Guards</option>
+                    <option>Aluminum Protective Rods</option>
+
+                </select>
+            </div>
+    
             <div class="actions">
                 <button class="clear-button">Clear</button>
                 <button class="apply-button">Apply</button>
             </div>
-
+    
             <div class="dimensions">
                 <label>Dimensions</label>
                 <div class="inputs">
@@ -534,11 +601,10 @@
                     </select>
                 </div>
             </div>
-
+    
             <button class="save-button">Save</button>
         </div>
     </div>
-   
 
     {% comment %} <!-- Footer Section -->
     <footer>
@@ -562,6 +628,24 @@
             if (!dropdownContent.contains(event.target) && !dropdownBtn.contains(event.target)) {
                 dropdownContent.style.display = 'none';
             }
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('.tab').forEach((tab, index) => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+        
+                // Hide all select elements
+                document.querySelectorAll('.list-box select').forEach(select => select.classList.add('hidden'));
+        
+                // Show the select element corresponding to the clicked tab
+                document.querySelectorAll('.list-box select')[index].classList.remove('hidden');
+            });
         });
     </script>
 
