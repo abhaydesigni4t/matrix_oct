@@ -41,18 +41,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 20px; /* Adjust to control overall padding */
+        }
+        
+        .header-title {
+            color: black;
+            font-size: 18px;
+            margin: 0 5px 0 20px; /* Controls space around title */
+            white-space: nowrap;
+        }
+        
+        .menu {
+            display: flex;
+            gap: 15px; /* Control the spacing between menu items */
         }
 
         .logo img {
             height: 40px;
             width: auto;
-            margin-left: 50px;
+            margin-left: -5px;
         }
 
-        .menu {
-            position: relative;
-           
-        }
+        
 
         .menu > div {
             position: relative; /* Make dropdown container relative */
@@ -61,7 +71,7 @@
         }
 
         .menu > div > a {
-            margin: 0 15px;
+            margin: 0 10px;
             color: white;
             text-decoration: none;
             padding: 5px 10px;
@@ -88,6 +98,7 @@
 
         }
 
+        
         .header-dropdown a {
             padding: 7px 12px;
             color: black;
@@ -120,7 +131,7 @@
         .dropdown-item:hover .split-screen-dropdown {
             display: block;
         }
-        
+
         /* Show the specific dropdown when hovering on Hardware */
         .dropdown-item:hover .hardware-dropdown {
             display: block;
@@ -131,18 +142,19 @@
             display: block;
         }
 
+
         .search input {
-            padding: 5px;
+            padding: 3px;
             border: none;
             border-radius: 5px;
-            margin-right: 50px;
+            margin-right: 30px;
+            margin-left:15px;
         }
 
         footer p {
             margin: 0;
             font-size: 14px;
         }
-        
 
         .sidebar {
             width: 180px;
@@ -181,20 +193,18 @@
             text-align: center;
             top: 50px;
         }
-    
+
         .dropdown-content a {
-            padding: 2px 6px;  /* Increased padding for links */
+            padding: 2px 6px;
             text-decoration: none;
             color: black;
             display: block;
             text-align: center;
-            
         }
 
         .dropdown-content a:hover {
             background-color: #ffcc00;
         }
-
 
         .home-btn {
             background-color: #ffcc00;
@@ -228,6 +238,7 @@
         .sidebar a:hover {
             background-color: #ffcc00;
         }
+
         
         .container-wrapper {
             display: flex;
@@ -302,6 +313,8 @@
             <div class="logo">
                 <a href="#"><img src="{% static 'app2/images/logo1.png' %}" alt="Logo"></a>
             </div>
+            <h5 class="header-title">Material Matrix</h5> <!-- Title added here -->
+
             <div class="menu">
                 <div>
                     <a href="#">File</a>
@@ -346,13 +359,14 @@
                 </div>
                 
 
+                
                 <div>
                     <a href="#">Import</a>
                     <div class="header-dropdown">
                         <div class="dropdown-item">
                             <a href="#">Hardware</a>
                             <div class="nested-dropdown hardware-dropdown">
-                                <a href="#">Via Cutsheet</a>
+                                <a href="#" id="via-cutsheet">Via Cutsheet</a>
                                 <a href="#">Via Excel Dimensions</a>    
                             </div>
                         </div>
@@ -366,6 +380,7 @@
                         <a href="#">Coversheet</a>
                     </div>
                 </div>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;" />
 
                 <div>
                     <a href="#">Tabs</a>
@@ -481,5 +496,39 @@
         });
     </script>
     
+    <script>
+        document.getElementById('via-cutsheet').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent default link behavior
+        
+            // Programmatically trigger the file input click
+            document.getElementById('fileInput').click();
+        });
+        
+        // Handle file input change event
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            // Check if files were selected
+            const files = event.target.files;
+        
+            if (files.length > 0) {
+                // If a folder is selected, log the file names inside
+                if (files[0].webkitRelativePath) {
+                    alert('Folder selected. Folder path: ' + files[0].webkitRelativePath);
+                } else {
+                    // If an image file is selected, you can display it or do something else
+                    const imageContainer = document.createElement('div');
+                    for (let file of files) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = URL.createObjectURL(file);  // Generate a URL for the image file
+                        imgElement.style.width = '100px';  // Adjust image size
+                        imageContainer.appendChild(imgElement);
+                    }
+                    document.body.appendChild(imageContainer);  // Append images to the page
+                }
+            } else {
+                alert('No files selected!');
+            }
+        });
+          
+    </script>
 </body>
 </html>
